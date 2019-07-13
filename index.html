@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock, Paper, Scissors, Lizard, Spock</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body style="background-color: #e9f2f5;">
+    
+<div class="jumbotron text-center py-3 bg-success text-white">
+    <h1>Rock, Paper, Scissors, Lizard, Spock!</h1>
+</div>
+
+<div class="container" id="playerJoinScreen">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="PlayerJoinForm" class="input-group w-25 mx-auto">
+              <input type="text" class="form-control" id="PlayerName" placeholder="Name">
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary" id="NameInput">Join</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-around">
+                <h4 class="p-3" id="message-left"></h4>
+                <h4 class="p-3" id="message"></h4>
+                <h4 class="p-3" id="message-right"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="GameScreen">
+    <div class="row">
+        <div class="col-md-6 align-self-center">
+            <div class="text-center bg-info"><h2 id="P1Name" class="mb-0">Player 1</h2></div>
+            <div class="d-flex bg-info" id="Player1Screen">
+                <div class="d-none text-center my-auto" id="P1Choices">
+                    <img src="assets/images/rock.png" class="gesture mx-1 img" id="rockP1">
+                    <img src="assets/images/paper.png" class="gesture mx-1 img" id="paperP1">
+                    <img src="assets/images/scissors.png" class="gesture mx-1 img" id="scissorsP1">
+                    <img src="assets/images/lizard.png" class="gesture mx-1 img" id="lizardP1">
+                    <img src="assets/images/spock.png" class="gesture mx-1 img" id="spockP1">
+                </div>
+                <div class="d-none bg-info m-auto text-center" id="P1Choice"><img id="P1ChoiceImage"></div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div><h5>Wins: <span id="P1Wins">0 </span></h5></div>
+                <div><h5>Losses: <span id="P1Losses">0 </span></h5></div>
+                <div><h5>Ties: <span id="P1Ties">0 </span></h5></div>
+            </div>
+        </div>
+        <div class="col-md-6 align-self-center">
+            <div class="text-center bg-warning"><h2 id="P2Name" class="mb-0">Player 2</h2></div>
+            <div class="d-flex bg-warning" id="Player2Screen">
+                <div class="d-none text-center my-auto" id="P2Choices">
+                    <img src="assets/images/rock.png" class="gesture mx-1 img" id="rockP2">
+                    <img src="assets/images/paper.png" class="gesture mx-1 img" id="paperP2">
+                    <img src="assets/images/scissors.png" class="gesture mx-1 img" id="scissorsP2">
+                    <img src="assets/images/lizard.png" class="gesture mx-1 img" id="lizardP2">
+                    <img src="assets/images/spock.png" class="gesture mx-1 img" id="spockP2">
+                </div>
+                <div class="d-none bg-warning m-auto text-center" id="P2Choice"><img id="P2ChoiceImage"></div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div><h5>Wins: <span id="P2Wins">0 </span></h5></div>
+                <div><h5>Losses: <span id="P2Losses">0 </span></h5></div>
+                <div><h5>Ties: <span id="P2Ties">0 </span></h5></div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <div id="PlayAgainForm" class="d-none">
+                <h4>Play Again? </h4>
+                <button type="button" class="btn btn-primary" id="AgainYes">YES!!</button>
+                <button type="button" class="btn btn-primary" id="AgainNo">Nah...</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+    <script src="assets/javascript/game.js"></script>
+
+
+</body>
+</html>

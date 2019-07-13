@@ -1,0 +1,14 @@
+#Player1Screen, #Player2Screen
+{
+    min-height: 30vh;
+}
+
+.gesture
+{
+    width: 15%;
+}
+
+#P1ChoiceImage, #P2ChoiceImage
+{
+    width: 60%;
+}
