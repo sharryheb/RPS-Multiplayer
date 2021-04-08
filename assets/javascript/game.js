@@ -174,6 +174,9 @@ function DeletePlayer(snapshot)
         $("#P1Choice").addClass("d-none");
         $("#P1ChoiceImage").attr("src", "");
         $("#P1Choices").addClass("d-none");
+        $("#P1Wins").text("0");
+        $("#P1Losses").text("0");
+        $("#P1Ties").text("0");
 
         if (whoAmI == 1)
         {
@@ -195,6 +198,9 @@ function DeletePlayer(snapshot)
         $("#P2Choice").addClass("d-none");
         $("#P2ChoiceImage").attr("src", "");
         $("#P2Choices").addClass("d-none");
+        $("#P2Wins").text("0");
+        $("#P2Losses").text("0");
+        $("#P2Ties").text("0");
 
         if (whoAmI == 2)
         {
