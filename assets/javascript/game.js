@@ -1,5 +1,5 @@
 
-var player1 = 
+var player1 =
 {
     name: "",
     gesture: "",
@@ -9,7 +9,7 @@ var player1 =
     ties: 0
 };
 
-var player2 = 
+var player2 =
 {
     name: "",
     gesture: "",
@@ -39,7 +39,7 @@ database.ref().on("child_removed", DeletePlayer);
 
 $(document).keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
         $("#NameInput").click();
 });
 
@@ -60,7 +60,7 @@ $("#NameInput").click(function()
         $("#P1Choices").removeClass("d-none");
         $("#P1Name").removeClass("d-none");
         $("#P1Name").text(" Player 1: " + pendingPlayer);
-        
+
     }
 
     else if (!player2.name)
@@ -78,7 +78,7 @@ $("#NameInput").click(function()
     $("#PlayerJoinForm").addClass("d-none");
 });
 
-$(".gesture").click(function() 
+$(".gesture").click(function()
 {
     var elementId = $(this).attr("id");
     var pendingGesture = elementId.substring(0, elementId.indexOf("P"));
@@ -89,21 +89,21 @@ $(".gesture").click(function()
         database.ref().child("p1/ready").set(true);
         $("#P1ChoiceImage").attr("src", "assets/images/" + pendingGesture + ".png");
     }
-    else 
+    else
     {
         database.ref().child("p2/gesture").set(pendingGesture);
         database.ref().child("p2/ready").set(true);
         $("#P2ChoiceImage").attr("src", "assets/images/" + pendingGesture + ".png");
-    }   
+    }
 });
 
 $("#AgainYes").click(function()
 {
-    var thisPlayer = eval("player" + whoAmI);
+    var thisPlayer = whoAmI === 1 ? player1 : player2;
     thisPlayer.gesture = "";
     thisPlayer.ready = false;
-    
-    database.ref().child("p" + whoAmI + "/gesture").set("");
+
+    database.ref().child("p" + whoAmI + "/gesture").set("xxxxx");
     database.ref().child("p" + whoAmI + "/ready").set(false);
 
     $("#message-left").text("");
@@ -135,7 +135,7 @@ $("#AgainYes").click(function()
 
 
 $("#AgainNo").click(function()
-{   
+{
     $("#message-left").text("");
     $("#message").text("");
     $("#message-right").text("");
@@ -150,7 +150,7 @@ $("#AgainNo").click(function()
     $("#P2Choice").addClass("d-none");
     $("#P2ChoiceImage").attr("src", "");
     $("#P2Choices").addClass("d-none");
-    
+
     $("#PlayAgainForm").addClass("d-none");
     $("#PlayerJoinForm").removeClass("d-none");
 
@@ -159,7 +159,7 @@ $("#AgainNo").click(function()
 });
 
 
-function DeletePlayer(snapshot) 
+function DeletePlayer(snapshot)
 {
     if (snapshot.key == "p1")
     {
@@ -216,7 +216,7 @@ function UpdatePlayer (snapshot)
         {
             player1.name = snapshot.child("p1/name").val();
         }
-        
+
         if(snapshot.child("p1/gesture").val())
         {
             player1.gesture = snapshot.child("p1/gesture").val();
@@ -243,7 +243,7 @@ function UpdatePlayer (snapshot)
             player1.ties = snapshot.child("p1/ties").val();
             $("#P1Ties").text(player1.ties);
         }
-        
+
         player1.ready = snapshot.child("p1/ready").val();
     }
 
@@ -253,7 +253,7 @@ function UpdatePlayer (snapshot)
         {
             player2.name = snapshot.child("p2/name").val();
         }
-        
+
         if(snapshot.child("p2/gesture").val())
         {
             player2.gesture = snapshot.child("p2/gesture").val();
@@ -283,13 +283,13 @@ function UpdatePlayer (snapshot)
 
         player2.ready = snapshot.child("p2/ready").val();
     }
-    
+
     if (winner < 0)
     {
         AllReady();
     }
     else
-    { 
+    {
         $("#PlayAgainForm").removeClass("d-none");
     }
   }
@@ -342,8 +342,10 @@ function AllReady()
             database.ref().child("p1/losses").set(player1.losses);
             database.ref().child("p2/wins").set(player2.wins);
         }
+        database.ref().child("p1/ready").set(false);
+        database.ref().child("p2/ready").set(false);
     }
-    else 
+    else
     {
         if(player1.name != "")
         {
@@ -355,21 +357,21 @@ function AllReady()
         {
             p1NamePhrase = p1Name + toJoin;
         }
-    
+
         if(player2.name != "")
         {
             p2Name = player2.name;
             if (!player2.ready)
                 p2NamePhrase = p2Name + toChoose;
         }
-        else 
+        else
         {
             p2NamePhrase = p2Name + toJoin;
         }
 
         if (p1Name == player1.name)
             $("#P1Name").text("Player 1: " + p1Name);
-        else 
+        else
             $("#P1Name").text(p1Name);
 
         if (p2Name == player2.name)
@@ -450,4 +452,3 @@ function FindWinner(p1Gesture, p2Gesture)
 
     return winner;
 }
-
