@@ -103,7 +103,7 @@ $("#AgainYes").click(function()
     thisPlayer.gesture = "";
     thisPlayer.ready = false;
 
-    database.ref().child("p" + whoAmI + "/gesture").set("xxxxx");
+    database.ref().child("p" + whoAmI + "/gesture").set(false);
     database.ref().child("p" + whoAmI + "/ready").set(false);
 
     $("#message-left").text("");
